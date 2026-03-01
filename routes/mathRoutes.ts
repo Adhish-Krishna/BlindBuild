@@ -1,5 +1,5 @@
 import express from "express";
-import { getMathProblems, sumDigits, reverseNumber } from "../controllers/mathController";
+import { getMathProblems, sumDigits, reverseNumber } from "../controllers/mathController.ts";
 
 const router = express.Router();
 

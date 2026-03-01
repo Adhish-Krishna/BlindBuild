@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
+import mathRoutes from "./routes/mathRoutes.ts";
+import dfsRoutes from "./routes/dfsRoutes.ts";
 
 dotenv.config();
 
@@ -29,6 +31,8 @@ app.get("/", (req, res) => {
   res.send("🚀 BlindBuild API running...");
 });
 
+app.use("/api/m1", mathRoutes);
+app.use("/api/d1", dfsRoutes);
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

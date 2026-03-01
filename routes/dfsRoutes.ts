@@ -1,5 +1,5 @@
 import express from "express";
-import { getDFSProblems, dfsTraversal, dfsPathExists } from "../controllers/dfsController";
+import { getDFSProblems, dfsTraversal, dfsPathExists } from "../controllers/dfsController.ts";
 
 const router = express.Router();
 

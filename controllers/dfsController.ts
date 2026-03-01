@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import Question from "../models/Question";
+import type { Request, Response } from "express";
+import Question from "../models/Question.ts";
 
 
 // GET all DFS problems
