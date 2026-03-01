@@ -5,9 +5,9 @@ expectations, and response formats.
 
 ------------------------------------------------------------------------
 
-## 🔍 DFS Controllers
+## 🔍 DFS Controllers (/api/d1)
 
-### 🔹 1. Cycle Detection (POST `/api/d1/problem1`)
+### 🔹 1. Cycle Detection (POST `/problem1`)
 
 **Description:**\
 Detects whether a cycle exists in the given graph.
@@ -42,7 +42,7 @@ Detects whether a cycle exists in the given graph.
 
 ------------------------------------------------------------------------
 
-### 🔹 2. Shortest Path Length (POST `/api/d1/shortestPathLength`)
+### 🔹 2. Shortest Path Length (POST `/problem2`)
 
 **Description:**\
 Returns the shortest path length between start and target nodes.
@@ -74,9 +74,9 @@ Returns the shortest path length between start and target nodes.
 
 ------------------------------------------------------------------------
 
-##  Math Controllers
+##  Math Routes (/api/m1)
 
-### 🔹 3. Matrix Multiplication (POST `/api/m1/matrixMultiplication`)
+### 🔹 3. Matrix Multiplication (POST `/problem1`)
 
 **Description:**\
 Performs matrix multiplication of matrices A and B.
@@ -109,7 +109,7 @@ When `A = [[1,2],[3,4]]` and `B = [[5,6],[7,8]]`.
 
 ------------------------------------------------------------------------
 
-### 🔹 4. Nth Root (POST `/api/m1/nthRoot`)
+### 🔹 4. Nth Root (POST `/problem2`)
 
 **Description:**\
 Computes the nth root of a given value.
@@ -140,4 +140,5 @@ Computes the nth root of a given value.
 { "message": "Success", "output": 3 }
 ```
 
- Same as math questions
+
+ routes format and controller format same as dfs questions
