@@ -1,13 +1,10 @@
 import express from "express";
-import { getDFSProblems, dfsTraversal, dfsPathExists } from "../controllers/dfsController.ts";
+import { dfsCycleDetection, dfsShortestPathLength } from "../controllers/dfsController.ts";
 
 const router = express.Router();
 
-// GET all DFS problems from DB
-router.get("/problem", getDFSProblems);
 
 // POST hidden logic endpoints
-router.post("/problem1", dfsTraversal);    // DFS traversal
-router.post("/problem2", dfsPathExists);   // Path existence
-
+router.post("/problem1", dfsCycleDetection);    
+router.post("/problem2", dfsShortestPathLength);   
 export default router;

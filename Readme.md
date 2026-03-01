@@ -1,89 +1,147 @@
-# BlindBuild -- Backend API Documentation
+# BlindBuild -- API Documentation
 
-This document describes the available backend routes, expected request
-bodies, and response formats for **BlindBuild**.
-
-------------------------------------------------------------------------
-
-## Round 1 (POST routes for participants to send requests and note the output to decode the logic)
+This document describes the DFS and Math controller endpoints, request
+expectations, and response formats.
 
 ------------------------------------------------------------------------
 
-##  Math Routes (`/api/m1`)
+## 🔍 DFS Controllers
 
-### 🔹 1. POST `/problem1`
+### 🔹 1. Cycle Detection (POST `/api/d1/problem1`)
 
 **Description:**\
-Returns the sum of digits of a given non-negative integer.
+Detects whether a cycle exists in the given graph.
 
-#### ✅ Request Body
+#### ❌ Error Cases
+
+-   Missing inputs
 
 ``` json
-{
-  "n": 1234
-}
+{ "constraints": "Graph required" }
 ```
 
-#### 🎯 Success Response
+-   Invalid graph structure
+
+``` json
+{ "constraints": "Graph must be an adjacency list object" }
+```
+
+#### ✅ Success Cases
+
+-   Cycle exists
+
+``` json
+{ "message": "Success", "output": true }
+```
+
+-   No cycle
+
+``` json
+{ "message": "Success", "output": false }
+```
+
+------------------------------------------------------------------------
+
+### 🔹 2. Shortest Path Length (POST `/api/d1/shortestPathLength`)
+
+**Description:**\
+Returns the shortest path length between start and target nodes.
+
+#### ❌ Error Cases
+
+-   Missing inputs
+
+``` json
+{ "constraints": "Graph, start, and target required" }
+```
+
+-   Start/target not in graph
+
+``` json
+{ "constraints": "Start or target node not found in graph" }
+```
+
+#### ✅ Success Cases
+
+-   Path exists
+
+``` json
+{ "message": "Success", "output": 2 }
+```
+
+-   Path does not exist
+
+``` json
+{ "message": "Success", "output": -1 }
+```
+
+------------------------------------------------------------------------
+
+##  Math Controllers
+
+### 🔹 3. Matrix Multiplication (POST `/api/m1/matrixMultiplication`)
+
+**Description:**\
+Performs matrix multiplication of matrices A and B.
+
+#### ❌ Error Cases
+
+-   Invalid input type
+
+``` json
+{ "constraints": "Provide valid A and B as 2D arrays" }
+```
+
+-   Dimension mismatch
+
+``` json
+{ "constraints": "Matrix dimensions do not match for this operation (columns of A must equal rows of B)" }
+```
+
+#### ✅ Success Case
 
 ``` json
 {
   "message": "Success",
-  "output": 10,
-  "hint": "Think about breaking the number into parts."
+  "output": [[19, 22], [43, 50]]
 }
 ```
 
-#### ❌ Error Response
-
-``` json
-{
-  "constraints": "Provide a non-negative integer"
-}
-```
-
-## Likewise , /problem2, /problem3 .../problemn is created,
-## each problem has a separate controller function 
+Example:\
+When `A = [[1,2],[3,4]]` and `B = [[5,6],[7,8]]`.
 
 ------------------------------------------------------------------------
 
-##  DFS Routes (`/api/d1`)
-
-### 🔹 2. POST `/problem1`
+### 🔹 4. Nth Root (POST `/api/m1/nthRoot`)
 
 **Description:**\
-Performs DFS traversal starting from a given node.
+Computes the nth root of a given value.
 
-#### ✅ Request Body
+#### ❌ Error Cases
 
-``` json
-{
-  "graph": {
-    "A": ["B", "C"],
-    "B": ["D"],
-    "C": [],
-    "D": []
-  },
-  "start": "A"
-}
-```
-
-#### 🎯 Success Response
+-   Invalid input types
 
 ``` json
-{
-  "message": "Success",
-  "output": ["A", "B", "D", "C"],
-  "hint": "Explore as deep as possible before backtracking."
-}
+{ "constraints": "Provide both 'value' and 'n' as numbers" }
 ```
 
-#### ❌ Error Response
+-   Invalid root (non-positive)
 
 ``` json
-{
-  "constraints": "Graph and start node required"
-}
+{ "constraints": "Root 'n' must be a positive integer" }
 ```
 
-## Same as math questions
+-   Negative value with even root
+
+``` json
+{ "constraints": "Cannot compute even root of a negative number" }
+```
+
+#### ✅ Success Case
+
+``` json
+{ "message": "Success", "output": 3 }
+```
+
+Example:\
+When `value = 27` and `n = 3`.

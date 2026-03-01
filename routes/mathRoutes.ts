@@ -1,13 +1,11 @@
 import express from "express";
-import { getMathProblems, sumDigits, reverseNumber } from "../controllers/mathController.ts";
+import {matrixMultiplication,nthRoot} from "../controllers/mathController.ts";
 
 const router = express.Router();
 
-// GET all math problems from DB
-router.get("/problem", getMathProblems);
 
 // POST hidden logic endpoints
-router.post("/problem1", sumDigits);       
-router.post("/problem2", reverseNumber);   
+router.post("/problem1", matrixMultiplication);       
+router.post("/problem2", nthRoot);   
 
 export default router;
