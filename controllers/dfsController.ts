@@ -1,17 +1,11 @@
 import type { Request, Response } from "express";
 
-// 1. DFS Cycle Detection in Directed Graph
-export const dfsCycleDetection = (req: Request, res: Response) => {
+
+export const dCD = (req: Request, res: Response) => {
   const { graph } = req.body;
 
-  // Error: Missing inputs
-  if (!graph) {
-    return res.status(400).json({ constraints: "Graph required" });
-  }
-
-  // Error: Invalid graph structure
-  if (typeof graph !== "object" || Array.isArray(graph)) {
-    return res.status(400).json({ constraints: "Graph must be an adjacency list object" });
+  if (!graph || typeof graph !== "object" || Array.isArray(graph)) {
+    return res.status(400).json({ message: "Error" });
   }
 
   const visited = new Set<string>();
@@ -42,18 +36,12 @@ export const dfsCycleDetection = (req: Request, res: Response) => {
   res.json({ message: "Success", output: false });
 };
 
-// 2. DFS Shortest Path Length (Unweighted Graph)
-export const dfsShortestPathLength = (req: Request, res: Response) => {
+
+export const dSPL = (req: Request, res: Response) => {
   const { graph, start, target } = req.body;
 
-  // Error: Missing inputs
   if (!graph || !start || !target) {
-    return res.status(400).json({ constraints: "Graph, start, and target required" });
-  }
-
-  // Error: Start/target not in graph
-  if (!graph[start] || !graph[target]) {
-    return res.status(400).json({ constraints: "Start or target node not found in graph" });
+    return res.status(400).json({ message: "Error" });
   }
 
   let minLength = Infinity;
@@ -66,17 +54,12 @@ export const dfsShortestPathLength = (req: Request, res: Response) => {
     }
     visited.add(node);
     for (const neighbor of graph[node] || []) {
-      if (!visited.has(neighbor)) {
-        dfs(neighbor, length + 1);
-      }
+      if (!visited.has(neighbor)) dfs(neighbor, length + 1);
     }
     visited.delete(node);
   };
 
   dfs(start, 0);
 
-  res.json({
-    message: "Success",
-    output: minLength === Infinity ? -1 : minLength
-  });
+  res.json({ message: "Success", output: minLength === Infinity ? -1 : minLength });
 };

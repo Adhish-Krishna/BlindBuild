@@ -1,11 +1,11 @@
 import express from "express";
-import {matrixMultiplication,nthRoot} from "../controllers/mathController.ts";
+import {MM,nthR} from "../controllers/mathController.ts";
 
 const router = express.Router();
 
 
 // POST hidden logic endpoints
-router.post("/problem1", matrixMultiplication);       
-router.post("/problem2", nthRoot);   
+router.post("/problem1", MM);       
+router.post("/problem2", nthR);   
 
 export default router;
