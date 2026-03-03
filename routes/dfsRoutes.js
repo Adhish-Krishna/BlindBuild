@@ -1,9 +1,9 @@
 const express = require("express");
-const { dCD, dSPL } = require("../controllers/dfsController");
-
 const router = express.Router();
+const { dCD, dSPL, CIS } = require("../controllers/dfsController");
 
-router.post("/problem1", dCD);   
-router.post("/problem2", dSPL);  
+router.post("/problem1", dCD);
+router.post("/problem2", dSPL);
+router.post("/problem3", CIS);
 
 module.exports = router;
