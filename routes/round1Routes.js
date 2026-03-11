@@ -6,7 +6,10 @@ const {
   combineColors,
   vowelOrbit,
   gravityProcess,
-  HNP,RFC, TDL, PMF
+  HNP,RFC, TDL, PMF,Mirror,
+  evenOddGate,
+  alphabetPosition,
+  wordLengthCounter
 
 
 } = require("../controllers/round1Controller");
@@ -35,6 +38,11 @@ router.post("/problem7",HNP);
 router.post("/problem8",RFC);
 router.post("/problem9",TDL);
 router.post("/problem10",PMF);
+router.post ("/problem11",Mirror)
+router.post ("/problem12",evenOddGate)
+router.post ("/problem13",alphabetPosition)
+router.post ("/problem14",wordLengthCounter)
+
 
 
 
