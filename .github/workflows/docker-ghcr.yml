@@ -30,3 +30,8 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/blindbuild/backend:latest
+
+      - name: Call webhook after successful push
+        if: success()
+        run: |
+          curl --insecure ${{ secrets.WEBHOOK_URL }}
