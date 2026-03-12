@@ -20,6 +20,12 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 const app = express();
+const cors = require("cors");
+app.use(cors({
+  origin: ["http://localhost:5173", "http://localhost:5174"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json());
 
 
@@ -33,9 +39,11 @@ app.post("/debug", (req,res)=>{
 });
 // Routes
 app.use("/api/round1", round1Routes);
-app.use("/api/round2/eve-reg", r2q1Routes);
+app.use("/api/round2/events", r2q1Routes);
+
 app.use("/api/round2/w-s", r2q2Routes);
-app.use("/api/round2/check-in", r2q4Routes);
+app.use("/api/round2/convenor", r2q4Routes);
+
 app.use("/api/round2/f-r", r2q5Routes);
 app.use("/api/round2/l-f", r2q6Routes);
 
