@@ -20,6 +20,12 @@ mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/blindbuild")
 
 
 const app = express();
+const cors = require("cors");
+app.use(cors({
+  origin: ["http://localhost:5173", "http://localhost:5174"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json());
 
 

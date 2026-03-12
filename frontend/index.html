@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlindBuild | Event Management Portal</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>BlindBuild Hub</h1>
+        <p>Seamless management for events, workshops, check-ins, and more.</p>
+      </header>
+
+      <nav class="tabs-nav">
+        <button class="tab-btn active" data-tab="r2q1">Events & Reg</button>
+        <button class="tab-btn" data-tab="r2q2">Workshops</button>
+        <button class="tab-btn" data-tab="r2q4">Convenor Hub</button>
+        <button class="tab-btn" data-tab="r2q5">Feedback</button>
+        <button class="tab-btn" data-tab="r2q6">Lost & Found</button>
+      </nav>
+
+      <main id="tab-container">
+        <!-- R2Q1: Events & Registration -->
+        <section id="r2q1" class="tab-content active">
+          <div class="grid">
+            <div class="glass-card">
+              <h2>Join the Event</h2>
+              <form id="create-participant-form">
+                <div class="form-group">
+                  <label>Team Name</label>
+                  <input type="text" name="Teamname" required />
+                </div>
+                <div class="form-group">
+                  <label>Team Members (comma separated)</label>
+                  <input type="text" name="TeamMembers" placeholder="Alice, Bob, Charlie" />
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" name="password" required />
+                </div>
+                <button type="submit" class="btn-primary">Create Team</button>
+              </form>
+            </div>
+            <div class="glass-card">
+              <h2>Event Discovery</h2>
+              <button id="fetch-events-btn" class="btn-primary" style="margin-bottom: 1rem;">Load Events</button>
+              <div id="events-list" class="result-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- R2Q2: Workshops -->
+        <section id="r2q2" class="tab-content">
+          <div class="grid">
+            <div class="glass-card">
+              <h2>Workshop Explorer</h2>
+              <button id="view-workshops-btn" class="btn-primary" style="margin-bottom: 1rem;">View All Workshops</button>
+              <div id="workshops-list" class="result-list"></div>
+            </div>
+            <div class="glass-card">
+              <h2>Book a Slot</h2>
+              <form id="book-slot-form">
+                <div class="form-group">
+                  <label>User ID</label>
+                  <input type="text" name="userId" placeholder="U123" required />
+                </div>
+                <div class="form-group">
+                  <label>Workshop ID</label>
+                  <input type="text" id="booking-workshop-id" name="workshopId" required />
+                </div>
+                <div class="form-group">
+                  <label>Slot ID</label>
+                  <input type="text" id="booking-slot-id" name="slotId" required />
+                </div>
+                <button type="submit" class="btn-primary">Confirm Booking</button>
+              </form>
+              <div style="margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+                <h3>Check My Bookings</h3>
+                <div class="form-group" style="margin-top: 0.5rem;">
+                   <input type="text" id="check-booking-user-id" placeholder="Enter User ID" />
+                </div>
+                <button id="check-booking-btn" class="btn-primary">View My Schedule</button>
+                <div id="user-bookings-list" class="result-list"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- R2Q4: Convenor Hub (Attendance, Winners, Badges) -->
+        <section id="r2q4" class="tab-content">
+          <div class="grid">
+            <div class="glass-card">
+              <h2>Check-in Desk</h2>
+              <form id="verify-ticket-form">
+                <div class="form-group">
+                  <label>Ticket ID</label>
+                  <input type="text" name="ticketId" required />
+                </div>
+                <button type="submit" class="btn-primary">Verify & Mark Attendance</button>
+              </form>
+            </div>
+            <div class="glass-card">
+              <h2>Winner Management</h2>
+              <form id="add-winner-form">
+                <div class="form-group">
+                  <label>Event ID</label>
+                  <input type="text" name="eventId" required />
+                </div>
+                <div class="form-group">
+                  <label>Participant ID</label>
+                  <input type="text" name="participantId" required />
+                </div>
+                <div class="form-group">
+                  <label>Position (e.g. First)</label>
+                  <input type="text" name="position" required />
+                </div>
+                <button type="submit" class="btn-primary">Announce Winner</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- R2Q5: Feedback -->
+        <section id="r2q5" class="tab-content">
+          <div class="grid">
+            <div class="glass-card">
+              <h2>Share your Experience</h2>
+              <form id="submit-feedback-form">
+                <div class="form-group">
+                  <label>Participant ID</label>
+                  <input type="text" name="participantId" required />
+                </div>
+                <div class="form-group">
+                  <label>Comment</label>
+                  <textarea name="comment" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Submit Feedback</button>
+              </form>
+            </div>
+            <div class="glass-card">
+              <h2>Current Ratings</h2>
+              <div id="average-rating" class="glass-card" style="text-align: center;">
+                <h1 id="avg-score">0.0</h1>
+                <p>Average Participant Rating</p>
+                <button id="refresh-ratings-btn" class="btn-primary" style="margin-top: 1rem;">Refresh Stats</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- R2Q6: Lost & Found -->
+        <section id="r2q6" class="tab-content">
+          <div class="grid">
+            <div class="glass-card">
+              <h2>Report Lost/Found</h2>
+              <form id="report-item-form">
+                <div class="form-group">
+                  <label>Type</label>
+                  <select name="type">
+                    <option value="Lost">Lost</option>
+                    <option value="Found">Found</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Item Name</label>
+                  <input type="text" name="itemName" required />
+                </div>
+                <div class="form-group">
+                  <label>Category</label>
+                  <input type="text" name="category" required />
+                </div>
+                <div class="form-group">
+                  <label>Location</label>
+                  <input type="text" name="location" required />
+                </div>
+                <div class="form-group">
+                  <label>Reporter Name</label>
+                  <input type="text" name="reporterName" required />
+                </div>
+                <div class="form-group">
+                  <label>Contact Info</label>
+                  <input type="text" name="reporterContact" required />
+                </div>
+                <button type="submit" class="btn-primary">Report Item</button>
+              </form>
+            </div>
+            <div class="glass-card">
+              <h2>Recent Reports</h2>
+              <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                <button id="view-lost-btn" class="btn-primary">Lost Items</button>
+                <button id="view-found-btn" class="btn-primary">Found Items</button>
+              </div>
+              <div id="items-list" class="result-list"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
