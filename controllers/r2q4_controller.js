@@ -2,6 +2,7 @@ const Participant = require("../models/r2q4_participant");
 const Ticket = require("../models/r2q4_ticket");
 const Attendance = require("../models/r2q4_attendance");
 const Badge = require("../models/r2q4_badge");
+const Winner = require("../models/r2q4_winner");
 
 // ---------------- TICKETS ----------------
 
@@ -141,6 +142,68 @@ exports.generateBadge = async (req, res) => {
 
         const participant = await Participant.findById(attendance.participantId);
         res.status(201).json({ message: "Badge generated", badge, participant });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// ---------------- WINNERS ----------------
+
+// Add Winner
+exports.addWinner = async (req, res) => {
+    try {
+        const { eventId, participantId, position, prizeName } = req.body;
+        
+        // Check if winner position already exists for this event
+        const existingWinner = await Winner.findOne({ eventId, position });
+        if (existingWinner) return res.status(400).json({ message: `Position ${position} for this event is already assigned.` });
+
+        const winner = new Winner({ eventId, participantId, position, prizeName });
+        await winner.save();
+        
+        res.status(201).json({ message: "Winner added successfully", winner });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// Update Winner
+exports.updateWinner = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updates = req.body;
+
+        const winner = await Winner.findByIdAndUpdate(id, updates, { new: true });
+        if (!winner) return res.status(404).json({ message: "Winner record not found" });
+
+        res.json({ message: "Winner updated successfully", winner });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// Delete Winner
+exports.deleteWinner = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const winner = await Winner.findByIdAndDelete(id);
+        
+        if (!winner) return res.status(404).json({ message: "Winner record not found" });
+        
+        res.json({ message: "Winner deleted successfully" });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// Get Winners by Event
+exports.getWinnersByEvent = async (req, res) => {
+    try {
+        const { eventId } = req.params;
+        const winners = await Winner.find({ eventId })
+            .populate("participantId")
+            .sort({ position: 1 });
+        res.json(winners);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

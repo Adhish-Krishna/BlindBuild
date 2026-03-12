@@ -1,20 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const checkinController = require("../controllers/r2q4_controller");
+const appController = require("../controllers/r2q1_controller");
 
-// Tickets
-router.get("/ticket/:id", checkinController.getTicketDetails);
+
+// Organisor (Convenor) Routes
+router.post("/events", appController.createEvent);
 router.post("/verify-ticket", checkinController.verifyTicket);
-
-// Attendance
 router.post("/attendance-mark", checkinController.markAttendance);
 router.post("/attendance-undo", checkinController.undoAttendance);
 router.get("/attendance", checkinController.getAttendanceStatus);
-
-// Participant
 router.get("/participant", checkinController.getParticipant);
-
-// Badge
 router.get("/badge", checkinController.generateBadge);
+
+// Winner Management
+router.post("/winner", checkinController.addWinner);
+router.put("/winner/:id", checkinController.updateWinner);
+router.delete("/winner/:id", checkinController.deleteWinner);
+router.get("/winners/event/:eventId", checkinController.getWinnersByEvent);
 
 module.exports = router;
