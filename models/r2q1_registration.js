@@ -3,14 +3,13 @@ const mongoose = require("mongoose");
 const RegistrationSchema = new mongoose.Schema({
 
   ParticipantId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Participant"
   },
   eventId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
-    enum:['Hackathon','Workshop','Seminar'],
     ref: "Event"
   },
   status: {

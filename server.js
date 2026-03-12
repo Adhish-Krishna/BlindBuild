@@ -12,7 +12,7 @@ const r2q6Routes = require("./routes/r2q6_Routes");
 
 
 // Connect to MongoDB 
-mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/blindbuild")
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("🚀 Connected to MongoDB"))
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
