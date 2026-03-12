@@ -2,17 +2,17 @@ const mongoose = require("mongoose");
 
 const TicketSchema = new mongoose.Schema({
   registrationId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Registration"
   },
   userId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "User"
+    ref: "Participant"
   },
   eventId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Event"
   },
@@ -27,7 +27,7 @@ const TicketSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["Valid", "Invalid"],
-    default: "InValid"
+    default: "Invalid"
   }
 });
 
