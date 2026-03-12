@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
 dotenv.config();
 
 const round1Routes = require("./routes/round1Routes");
@@ -20,7 +21,6 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 const app = express();
-const cors = require("cors");
 app.use(cors({
   origin: ["http://localhost:5173", "http://localhost:5174"],
   methods: ["GET", "POST", "PUT", "DELETE"],
