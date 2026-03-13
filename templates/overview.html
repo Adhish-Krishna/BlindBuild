@@ -58,6 +58,17 @@
       color: #0f766e;
     }
 
+    .top-instruction {
+      margin: 0 0 14px;
+      padding: 12px 14px;
+      border: 1px solid #99f6e4;
+      border-left: 5px solid #0f766e;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 0.95rem;
+    }
+
     h1 {
       margin: 0;
       font-family: "Garamond", "Palatino Linotype", serif;
@@ -94,7 +105,6 @@
     .question:nth-child(3) { animation-delay: 0.15s; }
     .question:nth-child(4) { animation-delay: 0.2s; }
     .question:nth-child(5) { animation-delay: 0.25s; }
-    .question:nth-child(6) { animation-delay: 0.3s; }
 
     .q-title {
       margin: 0 0 6px;
@@ -179,6 +189,11 @@
   <main class="shell">
     <header class="head">
       <p class="brand">BlindBuild</p>
+      <p class="top-instruction">
+        Participants are given an already deployed backend. API documentation will not be provided.
+        Teams must identify useful endpoints through exploration and integrate them into their frontend.
+        It is not necessary to discover every endpoint.
+      </p>
       <h1>Round 2: Problem Brief for API Architecture</h1>
       <p class="subtitle">
         Participants must design the backend API structure required to support frontend workflows.
@@ -190,12 +205,14 @@
       <article class="question">
         <h2 class="q-title">1. Event Registration &amp; Ticket System</h2>
         <h3>Problem Statement</h3>
-        <p>BlindBuild organizers need a platform where participants can register for events and receive digital tickets.</p>
+        <p>
+          This module manages participant onboarding and event sign-ups, while issuing unique digital tickets
+          to support smooth movement from registration to venue entry.
+        </p>
         <h3>Scenario Context</h3>
         <p>
-          The flow should cover a participant journey from onboarding to participation completion, including
-          discovering event options, completing enrollment, confirming status, receiving a ticket identity,
-          and handling cancellation when needed.
+          The experience should cover account-level setup, event discovery, sign-up validation,
+          registration tracking, ticket identity generation, and cancellation handling when required.
         </p>
         <h3>Task Focus</h3>
         <p>Design the complete API workflow, including resources, methods, payloads, and response formats.</p>
@@ -204,28 +221,16 @@
       </article>
 
       <article class="question">
-        <h2 class="q-title">2. Team Based Hackathon Portal</h2>
+        <h2 class="q-title">2. Workshop Slot Booking System</h2>
         <h3>Problem Statement</h3>
-        <p>Students should be able to form teams and complete hackathon registration as a unit.</p>
-        <h3>Scenario Context</h3>
         <p>
-          The solution should represent team lifecycle management, where teams are formed, membership changes are
-          tracked, details can be revised over time, and registration outcomes remain visible for verification.
+          This module supports workshop scheduling and seat reservation with time-slot awareness,
+          ensuring fair allocation and preventing overbooking.
         </p>
-        <h3>Task Focus</h3>
-        <p>Define a clear resource hierarchy for team and member operations with structured request and response models.</p>
-        <h3>Concepts Tested</h3>
-        <p>Resource design, API hierarchy, and CRUD operations.</p>
-      </article>
-
-      <article class="question">
-        <h2 class="q-title">3. Workshop Slot Booking System</h2>
-        <h3>Problem Statement</h3>
-        <p>Users need to reserve workshops where each session has limited slot availability.</p>
         <h3>Scenario Context</h3>
         <p>
-          Participants should be able to understand workshop options, review real-time seat capacity,
-          reserve a position, reverse decisions when required, and verify whether the booking state is active.
+          Participants should be able to browse workshop sessions, understand slot availability,
+          reserve preferred timings, update decisions when needed, and verify their booking state.
         </p>
         <h3>Task Focus</h3>
         <p>Design APIs that manage nested workshop-slot relationships and booking lifecycle actions.</p>
@@ -234,28 +239,34 @@
       </article>
 
       <article class="question">
-        <h2 class="q-title">4. Event Check-In System</h2>
+        <h2 class="q-title">3. Convenor &amp; Event Management Hub</h2>
         <h3>Problem Statement</h3>
-        <p>Participants must check in on event day using ticket IDs to validate entry and attendance.</p>
+        <p>
+          This organizer-facing module supports operational control during events,
+          including participant validation, attendance handling, and event-level result management.
+        </p>
         <h3>Scenario Context</h3>
         <p>
-          Check-in should establish a reliable sequence from ticket validation to participant retrieval,
-          attendance confirmation, badge assignment, and final status visibility for event operations.
+          Convenors should be able to verify ticket authenticity, mark and revise attendance,
+          retrieve participant details, generate badge outputs, and manage winner records in a traceable flow.
         </p>
         <h3>Task Focus</h3>
-        <p>Build a robust check-in workflow with clear verification and attendance state transitions.</p>
+        <p>Design organizer-oriented APIs that support real-time event control and outcome management.</p>
         <h3>Concepts Tested</h3>
-        <p>Validation logic, event workflow sequencing, and consistency handling.</p>
+        <p>Operational workflow design, validation logic, and event data governance.</p>
       </article>
 
       <article class="question">
-        <h2 class="q-title">5. Event Feedback &amp; Rating System</h2>
+        <h2 class="q-title">4. Event Feedback &amp; Rating System</h2>
         <h3>Problem Statement</h3>
-        <p>Participants should provide feedback and ratings after event completion.</p>
+        <p>
+          This module captures participant experience after events through written feedback and rating input,
+          helping organizers evaluate quality and satisfaction.
+        </p>
         <h3>Scenario Context</h3>
         <p>
-          The platform should support post-event experience capture where responses can be revisited,
-          improved, removed when necessary, and combined into meaningful aggregate sentiment indicators.
+          Responses should remain manageable over time so entries can be reviewed, refined,
+          removed when needed, and aggregated into a meaningful performance overview.
         </p>
         <h3>Task Focus</h3>
         <p>Design CRUD-ready feedback APIs and rating aggregation behavior with predictable response formats.</p>
@@ -264,13 +275,16 @@
       </article>
 
       <article class="question">
-        <h2 class="q-title">6. Lost &amp; Found Campus Portal</h2>
+        <h2 class="q-title">5. Lost &amp; Found Campus Portal</h2>
         <h3>Problem Statement</h3>
-        <p>During large events, users should report lost items while others can report found items and support item recovery.</p>
+        <p>
+          This module provides a structured recovery process for misplaced items,
+          from initial reporting to validated return across campus event spaces.
+        </p>
         <h3>Scenario Context</h3>
         <p>
-          The workflow should handle reporting, discovery, matching, claiming, moderation approval,
-          and closure so that item return is traceable from first report to final handover.
+          The flow should support item reporting, report matching, claim tracking,
+          admin-level decisions, and final closure with accountability at each stage.
         </p>
         <h3>Task Focus</h3>
         <p>Design a multi-actor API workflow with clear claim states, role responsibilities, and status transitions.</p>
